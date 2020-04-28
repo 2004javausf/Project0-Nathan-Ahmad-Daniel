@@ -158,6 +158,54 @@ public class Banking {
 		System.out.println("Invalid input");
 	}
 
+	
+	public void withdrawl(String username, String password) {
+		
+		int accountNumber = 0;
+		float withdrawal = 0;
+		showAllAccounts(username);
+		Scanner s = new Scanner(System.in);
+		System.out.println("Enter account number.");
+		try {
+			accountNumber = s.nextInt();
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input");
+			return;
+		}
+		System.out.println("Enter withdrawal amount");
+		try {
+			withdrawal = s.nextFloat();
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input");
+			return;
+		}
+		readFile(accFile);
+		for(int i = 0; i < Banking.accList.size(); i++) {
+			String tmp = Banking.accList.get(i).toString();
+			if(tmp.contains("username=" + username + ", password=" + password + ", accountNumber=" + accountNumber)) {
+				tmp = tmp.replace("=", " ");
+				tmp = tmp.replace(",", "");
+				String[] tmps = tmp.split(" ");
+				Float balance = Float.parseFloat(tmps[7]);
+				accList.remove(i);
+				balance = balance - withdrawal;
+				if(balance < withdrawal) {
+					System.out.println("Withdrawal too large.");
+					return;
+				}
+				System.out.println("Old balance: " + tmps[7]);
+				System.out.println("New balance: " + balance);
+				Account a = new Account(username, password, accountNumber, balance);
+				accList.add(a);
+				writeToFile(accFile, accList);
+				showAllAccounts(username);
+				return;
+			} else {
+				
+			}
+		}
+		System.out.println("Invalid input");	
+	}
 
 	public void showAllAccounts(String username) {
 		

@@ -16,9 +16,9 @@ public class TestDriver {
 		//e.showActiveAccounts();
 		//Employee.showApplications();
 		//b.deposit("nathangeo", "23123");
-		b.showAllAccounts("nathangeo");
+		//b.showAllAccounts("nathangeo");
 		//b.login();
-		
+		b.withdrawl("nathangeo", "23123");
 		//b.registration();
 	}
 
