@@ -109,6 +109,8 @@ public class Banking {
 			accList.add(a);
 			writeToFile(applicationFile, accList);
 		}
+	
+		System.out.println("Account registered, you must wait for account to be approved before logging in.");
 	}
 
 
@@ -226,13 +228,13 @@ public class Banking {
 	}
 
 
-	public void login() {
+	public void login(String username, String password) {
 		
-		Scanner s = new Scanner(System.in);
-		System.out.println("Enter username.");
-		String username = s.nextLine();
-		System.out.println("Enter password");
-		String password = s.nextLine();
+//		Scanner s = new Scanner(System.in);
+//		System.out.println("Enter username.");
+//		String username = s.nextLine();
+//		System.out.println("Enter password");
+//		String password = s.nextLine();
 		readFile(accFile);
 		String tmp3 = "hereweare";
 		for(int j = 0; j < Banking.accList.size(); j++) {
@@ -245,10 +247,10 @@ public class Banking {
 		
 		if(tmp3.contains("username=" + username + ", password=" + password)) {
 			System.out.println("login success");
-			s.close();
+			//s.close();
 		} else {
 			System.out.println("Incorrect login info, please try again");
-			login();
+			login(username, password);
 		}	
 	}
 	
@@ -258,8 +260,6 @@ public class Banking {
 		String value1 = null;
 		String value2 = null;
 		String tmp2 = null;
-		int i1 = 0;
-		int i2 = 0;
 		float amount = 0;
 		int accNum1 = 0;
 		int accNum2 = 0;
@@ -302,8 +302,7 @@ public class Banking {
 				
 			}
 		}
-		System.out.println(i1);
-		System.out.println(i2);
+
 		System.out.println(value1);
 		System.out.println(value2);
 		value1 = value1.replace("=", " ");
@@ -327,14 +326,10 @@ public class Banking {
 		}
 		Account a = new Account(username, password, accNum1, v1 - amount);
 		Account b = new Account(username, password, accNum2, v2 + amount);
-
-		System.out.println(Banking.accList.toString());
-		
 		accList.remove(c);
 		accList.remove(d);
 		accList.add(a);
 		accList.add(b);
-		System.out.println(Banking.accList.toString());
 		writeToFile(accFile, accList);
 		System.out.println("Transfer Successful:");
 		showAllAccounts(username);

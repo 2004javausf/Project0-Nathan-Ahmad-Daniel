@@ -1,5 +1,6 @@
 package drivers;
 
+import beans.Admin;
 import beans.Banking;
 import beans.Employee;
 
@@ -22,6 +23,8 @@ public class TestDriver {
 		//b.registration();
 		//b.transferFunds("hey", "1234");
 		//b.transferFunds("killbill", "321");
+		Admin a = new Admin();
+		a.deleteAccount();
 	}
 
 }
