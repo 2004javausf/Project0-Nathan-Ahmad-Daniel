@@ -3,6 +3,7 @@ package drivers;
 import java.util.Scanner;
 
 import beans.Banking;
+import beans.Employee;
 
 public class Driver {
 
@@ -78,7 +79,58 @@ public class Driver {
 			}
 		
 		case 2:
-			System.out.println("hey");
+			Employee e = new Employee();
+			Scanner ss = new Scanner(System.in);
+			System.out.println("Enter employee username.");
+			String username = ss.nextLine();
+			System.out.println("Enter employee password");
+			String password = ss.nextLine();
+			e.employeeLogin(username, password);
+			
+			do {
+				System.out.println("Please enter employee option:");
+				System.out.println("1: Approve/Deny Application");
+				System.out.println("2: View applications");
+				System.out.println("3: View all active accounts");
+				System.out.println("0: Quit");
+				choice = ss.nextInt();
+				switch(choice) {
+				case 1:
+					Employee.showApplications();
+					System.out.println("Approve(1) or deny(2)?");
+					Scanner sss = new Scanner(System.in);
+					String input = sss.nextLine();
+					if(input.equals("1")) {
+						System.out.println("Enter username of account to approve");
+						username = sss.nextLine();
+						e.approveApplication(username);
+						System.out.println("Account approved");
+						break;
+					} else if(input.equals("2")) {
+						System.out.println("Enter username of accout to deny");
+						username = sss.nextLine();
+						e.denyApplication(username);
+						System.out.println("Account denied and removed");
+						break;
+					}
+				
+				case 2:
+					Employee.showApplications();
+					break;
+				case 3:
+					Employee.showActiveAccounts();
+					break;
+				case 0:
+					quit = true;
+					break;
+				default:
+					System.out.println("Invalid input");
+					break;
+				}
+			} while(!quit);
+			System.out.println("Thank you");
+			System.exit(0);
+			
 		
 		case 3:
 			//do login method for admin

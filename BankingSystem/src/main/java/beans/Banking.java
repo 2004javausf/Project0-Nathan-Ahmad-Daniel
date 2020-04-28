@@ -230,11 +230,6 @@ public class Banking {
 
 	public void login(String username, String password) {
 		
-//		Scanner s = new Scanner(System.in);
-//		System.out.println("Enter username.");
-//		String username = s.nextLine();
-//		System.out.println("Enter password");
-//		String password = s.nextLine();
 		readFile(accFile);
 		String tmp3 = "hereweare";
 		for(int j = 0; j < Banking.accList.size(); j++) {

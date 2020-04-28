@@ -28,5 +28,30 @@ public class Admin extends Employee {
 		showActiveAccounts();
 		
 	}
+
+	public void adminLogin() {
+		Scanner s = new Scanner(System.in);
+		System.out.println("Enter admin username.");
+		String username = s.nextLine();
+		System.out.println("Enter admin password");
+		String password = s.nextLine();
+		readFile("Admins.txt");
+		String tmp3 = "hereweare";
+		for(int j = 0; j < Banking.accList.size(); j++) {
+			String tp = Banking.accList.get(j).toString();
+			if(tp.contains("username=" + username + ",")) {
+				tmp3 = tp;
+				break;
+			}
+		}
+		
+		if(tmp3.contains("username=" + username + ", password=" + password)) {
+			System.out.println("login success");
+			s.close();
+		} else {
+			System.out.println("Incorrect login info, please try again");
+			adminLogin();
+		}
+	}
 	
 }

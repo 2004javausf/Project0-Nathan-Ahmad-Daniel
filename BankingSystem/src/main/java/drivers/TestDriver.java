@@ -24,7 +24,9 @@ public class TestDriver {
 		//b.transferFunds("hey", "1234");
 		//b.transferFunds("killbill", "321");
 		Admin a = new Admin();
-		a.deleteAccount();
+		//a.deleteAccount();
+		//e.employeeLogin();
+		a.adminLogin();
 	}
 
 }
