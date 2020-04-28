@@ -1,12 +1,10 @@
 package beans;
 
-import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -82,6 +80,7 @@ public class Banking {
 		
 	
 	public void registration() {
+		Banking b = new Banking();
 		System.out.println("Enter desired username (no '=' or ',')");
 		Scanner s = new Scanner(System.in);
 		String username = s.nextLine();
@@ -130,6 +129,10 @@ public class Banking {
 		System.out.println("Enter deposit amount");
 		try {
 			deposit = s.nextFloat();
+			if(deposit < 0) {
+				System.out.println("Invalid input");
+				return;
+			}
 		} catch (InputMismatchException e) {
 			System.out.println("Invalid input");
 			return;
@@ -175,6 +178,10 @@ public class Banking {
 		System.out.println("Enter withdrawal amount");
 		try {
 			withdrawal = s.nextFloat();
+			if(withdrawal < 0) {
+				System.out.println("Invalid input");
+				return;
+			}
 		} catch (InputMismatchException e) {
 			System.out.println("Invalid input");
 			return;
@@ -245,4 +252,96 @@ public class Banking {
 		}	
 	}
 	
+	public void transferFunds(String username, String password) {
+		Account c = null;
+		Account d = null;
+		String value1 = null;
+		String value2 = null;
+		String tmp2 = null;
+		int i1 = 0;
+		int i2 = 0;
+		float amount = 0;
+		int accNum1 = 0;
+		int accNum2 = 0;
+		Scanner s = new Scanner(System.in);
+		showAllAccounts(username);
+		System.out.println("Enter account number which you would like to pull funds from");
+		try {
+		accNum1 = s.nextInt();
+		if(accNum1 < 1) {
+			System.out.println("Invalid input");
+			return;
+		}
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input");
+			return;
+		}
+		System.out.println("Enter account number which you woul like to transfer funds to");
+		try {
+		accNum2 = s.nextInt();
+		if(accNum2 < 1) {
+			System.out.println("Invalid input");
+			return;
+		}
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input");
+			return;
+		}
+		readFile(accFile);
+		for(int i = 0; i < Banking.accList.size(); i++) {
+			String tmp = Banking.accList.get(i).toString();
+			tmp2 = tmp;
+			if(tmp2.contains("username=" + username + ", password=" + password + ", accountNumber=" + accNum1)) {
+				value1 = tmp2;
+				c = new Account("s", "s", 1000, 3);
+				Banking.accList.set(i, c);
+			} else if (tmp2.contains("username=" + username + ", password=" + password + ", accountNumber=" + accNum2)) {
+				value2 = tmp2;
+				d = new Account("s", "s", 1001, 3);
+				Banking.accList.set(i, d);
+				
+			}
+		}
+		System.out.println(i1);
+		System.out.println(i2);
+		System.out.println(value1);
+		System.out.println(value2);
+		value1 = value1.replace("=", " ");
+		value1 = value1.replace(",", "");
+		String[] values1 = value1.split(" ");
+		value2 = value2.replace("=", " ");
+		value2 = value2.replace(",", "");
+		String[] values2 = value2.split(" ");
+		Float v1 = Float.parseFloat(values1[7]);
+		Float v2 = Float.parseFloat(values2[7]);
+		System.out.println("Enter transfer amount");
+		try {
+		amount = s.nextFloat();
+		if(amount > v1) {
+			System.out.println("Insufficient funds for transfer amount");
+			return;
+		}
+		} catch (InputMismatchException e) {
+			System.out.println("Invalid input");
+			return;
+		}
+		Account a = new Account(username, password, accNum1, v1 - amount);
+		Account b = new Account(username, password, accNum2, v2 + amount);
+
+		System.out.println(Banking.accList.toString());
+		
+		accList.remove(c);
+		accList.remove(d);
+		accList.add(a);
+		accList.add(b);
+		System.out.println(Banking.accList.toString());
+		writeToFile(accFile, accList);
+		System.out.println("Transfer Successful:");
+		showAllAccounts(username);
+	
+	
+	}
+
+
+
 }

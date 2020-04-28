@@ -7,19 +7,21 @@ public class TestDriver {
 
 	public static void main(String[] args) {
 		Employee e = new Employee();
-		//e.approveApplication("nathangeo", "3");
-		//e.denyApplication("nathangeo", "2");
+		//e.approveApplication("killbill", "3");
+		//e.denyApplication("hey", "2");
 		Banking b = new Banking();
 		//b.registration();
 		//e.showApplications();
-		//b.newAccount("nathangeo");
+		//b.newAccount("killbill");
 		//e.showActiveAccounts();
 		//Employee.showApplications();
-		//b.deposit("nathangeo", "23123");
+		//b.deposit("killbill", "321");
 		//b.showAllAccounts("nathangeo");
 		//b.login();
-		b.withdrawl("nathangeo", "23123");
+		//b.withdrawl("nathangeo", "23123");
 		//b.registration();
+		//b.transferFunds("hey", "1234");
+		//b.transferFunds("killbill", "321");
 	}
 
 }
