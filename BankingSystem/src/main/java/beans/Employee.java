@@ -79,7 +79,7 @@ public class Employee extends Banking {
 			//s.close();
 		} else {
 			System.out.println("Incorrect login info, please try again");
-			employeeLogin(username, password);
+			System.exit(0);
 		}
 	}
 	

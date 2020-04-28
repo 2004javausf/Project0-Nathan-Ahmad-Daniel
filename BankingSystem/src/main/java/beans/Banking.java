@@ -88,6 +88,7 @@ public class Banking {
 			System.out.println("Invalid input");
 			registration();
 		}
+		
 		readFile(accFile);
 		String tmp = Banking.accList.toString();
 		if(tmp.contains(username)) {
@@ -118,7 +119,7 @@ public class Banking {
 	public void deposit(String username, String password) {
 
 		int accountNumber = 0;
-		float deposit = 0;
+		double deposit = 0;
 		showAllAccounts(username);
 		Scanner s = new Scanner(System.in);
 		System.out.println("Enter account number.");
@@ -130,7 +131,7 @@ public class Banking {
 		}
 		System.out.println("Enter deposit amount");
 		try {
-			deposit = s.nextFloat();
+			deposit = s.nextDouble();
 			if(deposit < 0) {
 				System.out.println("Invalid input");
 				return;
@@ -147,7 +148,7 @@ public class Banking {
 				tmp = tmp.replace(",", "");
 				String[] tmps = tmp.split(" ");
 				System.out.println("Old balance: " + tmps[7]);
-				Float balance = Float.parseFloat(tmps[7]);
+				Double balance = Double.parseDouble(tmps[7]);
 				accList.remove(i);
 				balance = balance + deposit;
 				System.out.println("New balance: " + balance);
@@ -167,7 +168,7 @@ public class Banking {
 	public void withdrawl(String username, String password) {
 		
 		int accountNumber = 0;
-		float withdrawal = 0;
+		double withdrawal = 0;
 		showAllAccounts(username);
 		Scanner s = new Scanner(System.in);
 		System.out.println("Enter account number.");
@@ -179,7 +180,7 @@ public class Banking {
 		}
 		System.out.println("Enter withdrawal amount");
 		try {
-			withdrawal = s.nextFloat();
+			withdrawal = s.nextDouble();
 			if(withdrawal < 0) {
 				System.out.println("Invalid input");
 				return;
@@ -195,7 +196,7 @@ public class Banking {
 				tmp = tmp.replace("=", " ");
 				tmp = tmp.replace(",", "");
 				String[] tmps = tmp.split(" ");
-				Float balance = Float.parseFloat(tmps[7]);
+				double balance = Double.parseDouble(tmps[7]);
 				accList.remove(i);
 				balance = balance - withdrawal;
 				if(balance < withdrawal) {
@@ -245,7 +246,8 @@ public class Banking {
 			//s.close();
 		} else {
 			System.out.println("Incorrect login info, please try again");
-			login(username, password);
+			System.exit(0);
+			
 		}	
 	}
 	
@@ -255,7 +257,7 @@ public class Banking {
 		String value1 = null;
 		String value2 = null;
 		String tmp2 = null;
-		float amount = 0;
+		double amount = 0;
 		int accNum1 = 0;
 		int accNum2 = 0;
 		Scanner s = new Scanner(System.in);
@@ -306,11 +308,11 @@ public class Banking {
 		value2 = value2.replace("=", " ");
 		value2 = value2.replace(",", "");
 		String[] values2 = value2.split(" ");
-		Float v1 = Float.parseFloat(values1[7]);
-		Float v2 = Float.parseFloat(values2[7]);
+		Double v1 = Double.parseDouble(values1[7]);
+		Double v2 = Double.parseDouble(values2[7]);
 		System.out.println("Enter transfer amount");
 		try {
-		amount = s.nextFloat();
+		amount = s.nextDouble();
 		if(amount > v1) {
 			System.out.println("Insufficient funds for transfer amount");
 			return;

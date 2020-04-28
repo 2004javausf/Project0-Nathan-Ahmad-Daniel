@@ -11,7 +11,7 @@ class BankingTesting {
 	@Test // TESTED AND WORKS
 	void loginTest() {
 		Banking b = new Banking();
-		//b.login();
+		b.login("test", "tessfdfst");
 		
 		
 	}

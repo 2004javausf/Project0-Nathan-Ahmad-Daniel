@@ -2,6 +2,7 @@ package drivers;
 
 import java.util.Scanner;
 
+import beans.Admin;
 import beans.Banking;
 import beans.Employee;
 
@@ -20,7 +21,7 @@ public class Driver {
 			switch(choice) {
 			case 1:
 				b.registration();
-				break;
+				System.exit(0);
 			
 			case 2:
 				
@@ -134,6 +135,94 @@ public class Driver {
 		
 		case 3:
 			//do login method for admin
+			Admin aa = new Admin();
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Enter username:");
+			username = sc.nextLine();
+			System.out.println("Enter password:");
+			password = sc.nextLine();
+			aa.adminLogin(username, password);
+			
+			do {
+				System.out.println("Enter admin option:");
+				System.out.println("1: Approve/Deny applicaton");
+				System.out.println("2: Show all applications");
+				System.out.println("3: Show all active accounts");
+				System.out.println("4: Deposit into an account");
+				System.out.println("5: Withdrawal from an account");
+				System.out.println("6: Transfer funds between a user's accounts");
+				System.out.println("7: Cancel an active account");
+				System.out.println("0: Quit");
+				choice = sc.nextInt();
+				switch(choice) {
+				
+				case 1:
+					
+					Employee.showApplications();
+					System.out.println("Approve(1) or deny(2)?");
+					Scanner sss = new Scanner(System.in);
+					String input = sss.nextLine();
+					if(input.equals("1")) {
+						System.out.println("Enter username of account to approve");
+						username = sss.nextLine();
+						aa.approveApplication(username);
+						System.out.println("Account approved");
+						break;
+					} else if(input.equals("2")) {
+						System.out.println("Enter username of accout to deny");
+						username = sss.nextLine();
+						aa.denyApplication(username);
+						System.out.println("Account denied and removed");
+						break;
+					}
+				
+				case 2:
+					Employee.showApplications();
+					break;
+				case 3:
+					Employee.showActiveAccounts();
+					break;
+				case 4:
+					Scanner scc = new Scanner (System.in);
+					System.out.println("Enter username of account you want to deposit funds into");
+					username = scc.nextLine();
+					System.out.println("Enter password of account you want to deposit funds into");
+					password = scc.nextLine();
+					aa.deposit(username, password);
+					break;
+				
+				case 5:
+					Scanner sccc = new Scanner (System.in);
+					System.out.println("Enter username of account you want to withdrawal funds from");
+					username = sccc.nextLine();
+					System.out.println("Enter password of account you want to withdrawal funds from");
+					password = sccc.nextLine();
+					aa.withdrawl(username, password);
+					break;
+				
+				case 6:
+					Scanner scccs = new Scanner (System.in);
+					System.out.println("Enter username of account you want to withdrawal funds from");
+					username = scccs.nextLine();
+					System.out.println("Enter password of account you want to withdrawal funds from");
+					password = scccs.nextLine();
+					aa.transferFunds(username, password);
+				
+				case 7:
+					aa.deleteAccount();
+					break;
+				
+				case 0:
+					quit = true;
+					break;
+				default:
+					System.out.println("Invalid input");
+					break;
+				}
+			} while(!quit);
+			System.out.println("Thank you");
+			System.exit(0);
+			
 		
 		default:
 			System.out.println("Invalid input");

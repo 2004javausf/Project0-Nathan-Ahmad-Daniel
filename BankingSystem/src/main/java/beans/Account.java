@@ -16,7 +16,7 @@ public class Account implements Serializable {
 	private String username; //must be unique
 	private String password; //one password for each user
 	private int accountNumber; //unique only to the user, account number n is nth account created by given user
-	private float balance; //account balance
+	private double balance; //account balance
 	public String getUsername() {
 		return username;
 	}
@@ -35,10 +35,10 @@ public class Account implements Serializable {
 	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-	public float getBalance() {
+	public double getBalance() {
 		return balance;
 	}
-	public void setBalance(float balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 	
@@ -47,7 +47,7 @@ public class Account implements Serializable {
 	}
 	
 	
-	public Account(String username, String password, int accountNumber, float balance) {
+	public Account(String username, String password, int accountNumber, double balance) {
 		this.username = username;
 		this.password = password;
 		this.accountNumber = accountNumber;

@@ -8,7 +8,7 @@ public class TestDriver {
 
 	public static void main(String[] args) {
 		Employee e = new Employee();
-		//e.approveApplication("killbill", "3");
+		//e.approveApplication("nathangeo");
 		//e.denyApplication("hey", "2");
 		Banking b = new Banking();
 		//b.registration();
@@ -26,7 +26,7 @@ public class TestDriver {
 		Admin a = new Admin();
 		//a.deleteAccount();
 		//e.employeeLogin();
-		a.adminLogin();
+		//a.adminLogin();
 	}
 
 }
