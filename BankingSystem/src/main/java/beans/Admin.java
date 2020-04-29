@@ -2,8 +2,14 @@ package beans;
 
 import java.util.Scanner;
 
-public class Admin extends Employee {
+//admin inherits from employee, as it has all the privileges employees have
+//along with the additional privileges of withdrawing, depositing, transferring, viewing
+//Since Employee inherits from Banking, Admin also inherits the privileges customers have
 
+public class Admin extends Employee {
+	
+	//to delete account, we need an existing username, respective password, and account number
+	//if username and password does not match an existing account, nothing happens
 	public void deleteAccount() {
 		Scanner s = new Scanner(System.in);
 		readFile("Accounts.txt");
@@ -28,7 +34,9 @@ public class Admin extends Employee {
 		showActiveAccounts();
 		
 	}
-
+	
+	//each admin signs in with same username and password: admin, 1234
+	//each admin has the same privileges
 	public void adminLogin(String username, String password) {
 //		Scanner s = new Scanner(System.in);
 //		System.out.println("Enter admin username.");

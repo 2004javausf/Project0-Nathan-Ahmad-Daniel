@@ -2,8 +2,16 @@ package beans;
 
 import java.util.Scanner;
 
+//employees have access to the Account ArrayList data structure in the Banking class
+//as well as the text files
+//and uses some of its methods, including readFile, writeToFile
+
 public class Employee extends Banking {
 
+	
+	//for a given username, this method searches the applications in the arrayList
+	//if an application matches a username, it is approved and removed from the Application file
+	//and written to Account file
 	public void approveApplication(String username) {
 		
 		Banking b = new Banking();
@@ -26,6 +34,10 @@ public class Employee extends Banking {
 		}	
 		
 	}
+	
+	//similar in structure to approveApplication
+	//it simply removes the pending application from the applications file
+	//without writing it to the account file
 
 	public void denyApplication(String username) {
 		Banking b = new Banking();
@@ -41,6 +53,7 @@ public class Employee extends Banking {
 		}
 	}
 
+	//shows all approved accounts
 	public static void showActiveAccounts() {
 		Banking b = new Banking();
 		b.readFile("Accounts.txt");
@@ -50,7 +63,8 @@ public class Employee extends Banking {
 			System.out.println(tmp2);
 		}
 	}
-
+	
+	//shows all applications
 	public static void showApplications() {
 
 		Banking b = new Banking();
@@ -62,6 +76,9 @@ public class Employee extends Banking {
 		}
 	}
 	
+	//all employees login with the same username and password: employee, 1234
+	//each employee has the same rights
+
 	public void employeeLogin(String username, String password) {
 
 		readFile("Employees.txt");

@@ -6,14 +6,20 @@ import beans.Admin;
 import beans.Banking;
 import beans.Employee;
 
+//class with the main method
+//single driver for all entities (customer, employee, admin)
+//has a menu structure
+
 public class Driver {
 
 	public static void main(String[] args) {
-		boolean quit = false;
+		boolean quit = false;         // exiting will make quit = true
 		Scanner s = new Scanner(System.in);
 		System.out.println("Welcome, please identify as a 1: User, 2: Employee, 3: Admin");
 		int choice = s.nextInt();
 		switch(choice) {
+
+		//menu for user
 		case 1:
 			Banking b = new Banking();
 			System.out.println("Are you a new user to our bank? (1: YES, 2: NO)");
@@ -21,12 +27,12 @@ public class Driver {
 			switch(choice) {
 			case 1:
 				b.registration();
-				System.exit(0);
+				System.exit(0); //automatic exit after registration
 			
 			case 2:
 				
 				Scanner ss = new Scanner(System.in);
-				Banking c = new Banking();
+				Banking c = new Banking(); //allows access to banking methods
 				System.out.println("Enter username");
 				String username = ss.nextLine();
 				System.out.println("Enter password");
@@ -34,6 +40,9 @@ public class Driver {
 				c.login(username, password);
 				
 				do {
+
+				//each menu option goes to a certain case
+
 				System.out.println("Please select a banking option:");
 				System.out.println("1: New account");
 				System.out.println("2: View all account info");
@@ -79,15 +88,16 @@ public class Driver {
 				
 			}
 		
+		//menu for employee
 		case 2:
-			Employee e = new Employee();
+			Employee e = new Employee();         //gives us access to employee methods
 			Scanner ss = new Scanner(System.in);
 			System.out.println("Enter employee username.");
 			String username = ss.nextLine();
 			System.out.println("Enter employee password");
 			String password = ss.nextLine();
-			e.employeeLogin(username, password);
-			
+			e.employeeLogin(username, password); //if this is incorrect, then the employeeLogin method would abort program
+			//otherwise
 			do {
 				System.out.println("Please enter employee option:");
 				System.out.println("1: Approve/Deny Application");
@@ -108,7 +118,7 @@ public class Driver {
 						System.out.println("Account approved");
 						break;
 					} else if(input.equals("2")) {
-						System.out.println("Enter username of accout to deny");
+						System.out.println("Enter username of account to deny");
 						username = sss.nextLine();
 						e.denyApplication(username);
 						System.out.println("Account denied and removed");
@@ -132,10 +142,10 @@ public class Driver {
 			System.out.println("Thank you");
 			System.exit(0);
 			
-		
+		//menu for admin
 		case 3:
 			//do login method for admin
-			Admin aa = new Admin();
+			Admin aa = new Admin(); //access to admin methods
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Enter username:");
 			username = sc.nextLine();
@@ -207,6 +217,7 @@ public class Driver {
 					System.out.println("Enter password of account you want to withdrawal funds from");
 					password = scccs.nextLine();
 					aa.transferFunds(username, password);
+					break;
 				
 				case 7:
 					aa.deleteAccount();
