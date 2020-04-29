@@ -1,6 +1,5 @@
 package beans;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
@@ -87,7 +87,7 @@ public class Banking {
 		if((username.contains("=")) || (username.contains(","))) {
 			System.out.println("Invalid input");
 			registration();
-		}
+		} else {
 		
 		readFile(accFile);
 		String tmp = Banking.accList.toString();
@@ -109,11 +109,10 @@ public class Banking {
 			Account a = new Account(username, password, 1, 0);
 			accList.add(a);
 			writeToFile(applicationFile, accList);
+			System.out.println("Account registered, you must wait for account to be approved before logging in.");
 		}
-	
-		System.out.println("Account registered, you must wait for account to be approved before logging in.");
 	}
-
+	}
 
 
 	public void deposit(String username, String password) {
@@ -151,8 +150,11 @@ public class Banking {
 				Double balance = Double.parseDouble(tmps[7]);
 				accList.remove(i);
 				balance = balance + deposit;
-				System.out.println("New balance: " + balance);
-				Account a = new Account(username, password, accountNumber, balance);
+				DecimalFormat df2 = new DecimalFormat("#.##");
+				String tmp2 = df2.format(balance);
+				Double tmpp = Double.parseDouble(tmp2);
+				System.out.println("New balance: " + tmpp);
+				Account a = new Account(username, password, accountNumber, tmpp);
 				accList.add(a);
 				writeToFile(accFile, accList);
 				showAllAccounts(username);
@@ -203,9 +205,12 @@ public class Banking {
 					System.out.println("Withdrawal too large.");
 					return;
 				}
+				DecimalFormat df2 = new DecimalFormat("#.##");
+				String tmpp = df2.format(balance);
+				Double tmpp2 = Double.parseDouble(tmpp);
 				System.out.println("Old balance: " + tmps[7]);
-				System.out.println("New balance: " + balance);
-				Account a = new Account(username, password, accountNumber, balance);
+				System.out.println("New balance: " + tmpp2);
+				Account a = new Account(username, password, accountNumber, tmpp2);
 				accList.add(a);
 				writeToFile(accFile, accList);
 				showAllAccounts(username);
@@ -254,6 +259,7 @@ public class Banking {
 	public void transferFunds(String username, String password) {
 		Account c = null;
 		Account d = null;
+		DecimalFormat df2 = new DecimalFormat("#.##");
 		String value1 = null;
 		String value2 = null;
 		String tmp2 = null;
@@ -312,7 +318,8 @@ public class Banking {
 		Double v2 = Double.parseDouble(values2[7]);
 		System.out.println("Enter transfer amount");
 		try {
-		amount = s.nextDouble();
+			amount = s.nextDouble();
+			df2.format(amount);
 		if(amount > v1) {
 			System.out.println("Insufficient funds for transfer amount");
 			return;
@@ -321,8 +328,13 @@ public class Banking {
 			System.out.println("Invalid input");
 			return;
 		}
-		Account a = new Account(username, password, accNum1, v1 - amount);
-		Account b = new Account(username, password, accNum2, v2 + amount);
+		String tmp = df2.format(v1 - amount);
+		String tmp3 = df2.format(v2 + amount);
+		Double tmpp = Double.parseDouble(tmp);
+		Double tmpp2 = Double.parseDouble(tmp3);
+		
+		Account a = new Account(username, password, accNum1, tmpp);
+		Account b = new Account(username, password, accNum2, tmpp2);
 		accList.remove(c);
 		accList.remove(d);
 		accList.add(a);
