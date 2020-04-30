@@ -127,7 +127,9 @@ public class Banking {
 			if((password.contains("=")) || (password.contains(","))) {
 				System.out.println("Invalid input");
 				registration();
-			}
+			} else {
+				
+			
 			s.close();
 			for(int j = 0; j < Banking.accList.size(); j++) {
 				Banking.accList.remove(j);
@@ -137,6 +139,8 @@ public class Banking {
 			accList.add(a);
 			writeToFile(applicationFile, accList);
 			System.out.println("Account registered, you must wait for account to be approved before logging in.");
+		
+			}
 		}
 	}
 	}
